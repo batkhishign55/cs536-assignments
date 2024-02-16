@@ -1,0 +1,350 @@
+\documentclass{article}
+
+% Packages for setting up page margins
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx, setspace, amsmath, mathtools, amssymb}
+
+% Title
+\title{CS536 Science of Programming - Assignment 2}
+\author{Batkhishig Dulamsurankhor - A20543498}
+\date{\today} % Use \date{} for no date
+
+\begin{document}
+
+\maketitle
+
+% Introduction or instructions
+% \section*{Instructions}
+% Replace this text with the instructions for your homework assignment.
+
+
+\section*{Problem 1}
+\textbf{Solution:}
+
+
+\textbf{a)} No. The right side of the logical implications doesn't always have to logically imply the left side. In other words, satisfying Pumping Lemma doesn't necessarily mean that $A$ is a regular language.
+
+\vspace{10pt}
+\textbf{b)} To prove that a language is not regular, we can prove by contradiction. If a string doesn't satisfy one of the three conditions in $D(s,p)$, it is a witness.
+
+\qquad $ (\exists i \geq 0.xy^iz \notin A) \vee (|y| \leq 0) \vee (|xy|>p) $
+
+
+
+\section*{Problem 2}
+\textbf{Solution:}
+
+\textbf{a)} e is a not a legal expression if $a \equiv b$. Because in conditional statement {\bf if} $B$ {\bf then} $e_1$ {\bf else} $e_2$ {\bf fi}, we require expression $e_1$ and $e_2$ to have the same type. But if we try to evaluate the expression e when $a \equiv b$, the first expression $b[0]$ is likely to be an array, and $a[1][3]$ is going to be evaluated to an integer and they have different types, thus $e$ is illegal.
+\vspace{10pt}
+
+\textbf{b)} Yes it is proper for $e$. If we evaluate the predicate in state $\sigma$:
+
+\qquad $\sigma (\textbf{if } x \geq 0 \textbf{ then } b[0] \textbf{ else } a[1][3]  \textbf{ fi})$ \qquad $= \sigma(\textbf{if } -1 \geq 0 \textbf{ then } b[0] \textbf{ else } a[1][3]  \textbf{ fi})$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad $= \sigma(\textbf{if } F \textbf{ then } b[0] \textbf{ else } a[1][3]  \textbf{ fi})$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad $= \sigma(a[1][3])$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad $= \sigma(a[1])[3]$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad $= \sigma(\beta [3])$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad $= \perp_e$
+
+It evaluates to a pseudo state with out of bound exception. Therefore, it doesn't satisfy $e$.
+
+
+\section*{Problem 3}
+\textbf{Solution:}
+
+\begin{center}
+    \begin{tabular}{ | c | c | p{6.5cm} | p{6.5cm} | }
+      \hline
+       &  & $\sigma[u \mapsto \alpha][v \mapsto \beta] = \sigma [v \mapsto \beta][u \mapsto \alpha]$? & $\sigma[u \mapsto \alpha][v \mapsto \beta] \equiv \sigma [v \mapsto \beta][u \mapsto \alpha]$? \\ \hline
+      $ u \equiv v $ & $ \alpha = \beta $ & True, the resulting state will be equal, because the state of the same variables $u$ and $v$ will be the same. & True, because $u$ and $v$ are the same variables and updating the value of the variable with the same samantic value twice will result in practically the same state. The procedure is the same.\\ \hline
+      $ u \equiv v $ & $ \alpha \neq \beta $ & False, because the first expression will end up assigning $\beta$ to the same variable $u$ and $v$, and the second expression will assign $\alpha$. & False, because the expressions are not even semantically equal.\\ \hline
+      $ u \not\equiv v $ & $ \alpha = \beta $ & True, because $u$ and $v$ are different variables and the order of the update doesn't matter. & False, because updating procedures are different. \\ \hline
+      $ u \not\equiv v $ & $ \alpha \neq \beta $ & True, because $u$ and $v$ are different variables and the order of the update doesn't matter. & False, because updating procedures are different. \\
+      \hline
+    \end{tabular}
+\end{center}
+
+
+\section*{Problem 4}
+\textbf{Solution:}
+
+\textbf{a)} $ \sigma= \{ x=2,y=4 \} $
+
+\qquad $ \sigma[x \mapsto \sigma(y)][y \mapsto \sigma(x)] $ \qquad $= \sigma[x \mapsto 4][y \mapsto \sigma(x)]$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad $ = \{x=4\}[y \mapsto \sigma(x)]$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad $ = \{x=4\}[y \mapsto 4]$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad $ = \{x=4, y=4\}$
+
+\vspace{10pt}
+
+\textbf{b)} $ \sigma= \{ x=2,y=4 \} $, $ \tau=\sigma[x \mapsto 3]$, and $ \gamma=\tau[y \mapsto \tau(x)*4] $, what is $\gamma$?
+
+\qquad $ \tau=\sigma[x \mapsto 3]$ \qquad \qquad \qquad $ = \{x=3,y=4\} $
+
+\qquad $ \gamma=\tau[y \mapsto \tau(x)*4] $ \qquad \quad $ = \tau[y \mapsto 3*4] $
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad $ = \tau[y \mapsto 12]$
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad $ = \{x=3,y=12\}$
+
+
+\section*{Problem 5}
+\textbf{Solution:}
+
+\textbf{a)} Does $\{x = 1, b = (5, 3, 6)\}$ satisfy $\forall x. \forall 0 \leq k < 3.x<b[k]$?
+
+No. Because, we can find $x=4$ such that $\{x = 1, b = (5, 3, 6)\}[x \mapsto 4]=\{x = 4, b = (5, 3, 6)\}$ doesn't satisfy the predicate. When $k=1$, $b[1]=3$ which is not greater than 4.
+
+\vspace{10pt}
+
+\textbf{b)} Does $\{b=(2,5,4,8)\}$ satisfy $\exists m.0 \leq m<4 \wedge b[m]<2$?
+
+No, we can't find an element in array $b$ that is less than $2$. In other words, all elements of $b$ is greater or equal to $2$.
+
+
+\section*{Problem 6}
+\textbf{Solution:}
+
+\textbf{a)} $ m \coloneqq 0; x \coloneqq 0; y \coloneqq 1; \textbf{ while } m<n \textbf{ do } m \coloneqq m+1; x \coloneqq x+1; y \coloneqq x; y \coloneqq y*x; \textbf{ od } m \coloneqq m*m $
+
+\vspace{10pt}
+
+\textbf{b)} $ m \coloneqq n; p \coloneqq 1; y \coloneqq 1; m \coloneqq m-1; \textbf{ while } m<n \textbf{ do } y \coloneqq y+1; p \coloneqq p*y; m \coloneqq m-1; \textbf{ od }$
+
+
+\section*{Problem 7}
+\textbf{Solution:}
+
+$ S \equiv \textbf{ if } x>0 \textbf{ then } x \coloneqq x+1 \textbf{ else } y \coloneqq -2*x \textbf{ fi }$ and $ W \equiv \textbf{ while } x>y \textbf{ do } S \textbf{ od } $.
+
+\textbf{a)} Evaluate $ \langle W, \sigma \rangle $ where $ \sigma \vDash y<x \leq 0 $.
+
+\qquad $\langle W, \sigma \rangle $ \qquad \quad $= \langle \textbf{ while } x>y \textbf{ do } S \textbf{ od }, \sigma \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle S, W, \sigma \rangle $ \qquad \qquad \qquad //$T$ since $y<x \leq 0$
+
+\qquad \qquad \qquad \qquad $= \langle \textbf{ if } x>0 \textbf{ then } x \coloneqq x+1 \textbf{ else } y \coloneqq -2*x \textbf{ fi }, W, \sigma \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle y \coloneqq -2*x, W, \sigma \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle W, \sigma[y \mapsto -2*x] \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle E, \sigma[y \mapsto -2*x] \rangle $ \qquad //$y$ becomes positive number and the while loop terminates
+
+\vspace{10pt}
+
+\textbf{b)} Evaluate $ \langle W, \sigma \rangle $ where $ \sigma \vDash x>0 \wedge y \leq 0 $.
+
+\qquad $\langle W, \sigma \rangle $ \qquad \quad $= \langle \textbf{ while } x>y \textbf{ do } S \textbf{ od }, \sigma \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle S, W, \sigma \rangle $ \qquad \qquad \qquad
+
+\qquad \qquad \qquad \qquad $= \langle \textbf{ if } x>0 \textbf{ then } x \coloneqq x+1 \textbf{ else } y \coloneqq -2*x \textbf{ fi }, W, \sigma \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle x \coloneqq x+1, W, \sigma \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle W, \sigma[x \mapsto x+1] \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow^* \langle W, \sigma[x \mapsto x+2] \rangle $
+
+\qquad \qquad \qquad \qquad $\rightarrow^* \langle W, \sigma[x \mapsto x+3] \rangle $
+
+\qquad \qquad \qquad \qquad $...$
+
+\qquad \qquad \qquad \qquad $\rightarrow \langle W, \perp_d \rangle $
+
+It diverges, because the value of $x$ will always increase and it will never be less than $0$.
+
+
+\section*{Problem 8}
+\textbf{Solution:}
+
+Let $ W \equiv \textbf{ while } x>0 \textbf{ do } S \textbf{ od } $, where $ S \equiv \textbf{ if } x<y \textbf{ then } x \coloneqq y/x \textbf{ else } x \coloneqq x-1; y \coloneqq b[y] \textbf{ fi }$.
+
+\textbf{a)} $M(S,\sigma)$ where $\sigma(x)=-2$ and $\sigma(y)=-1$
+
+\qquad $M(S,\sigma)$ \qquad \qquad $=M(S,\{x=-2,y=-1\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(\textbf{ if } x<y \textbf{ then } x \coloneqq y/x \textbf{ else } x \coloneqq x-1; y \coloneqq b[y] \textbf{ fi },\{x=-2,y=-1\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(x \coloneqq y/x,\{x=-2,y=-1\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(x \coloneqq -1/-2,\{x=-2,y=-1\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(x \coloneqq 0.5,\{x=-2,y=-1\})$
+
+\qquad \qquad \qquad \qquad \qquad $=\{\{x=0.5,y=-1\}\}$
+
+\vspace{10pt}
+
+\textbf{b)} $M(W,\sigma)$ where $\sigma=\{x=1, y=2,b=(4,2,0)\}$
+
+\qquad $M(W,\sigma)$ \qquad \qquad $=M(W,\{x=1, y=2,b=(4,2,0)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=1, y=2,b=(4,2,0)\}))$
+
+% \qquad \qquad \qquad \qquad \qquad $=M(W,M(\textbf{ if } x<y \textbf{ then } x \coloneqq y/x \textbf{ else } x \coloneqq x-1; y \coloneqq b[y] \textbf{ fi },\{x=1, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq y/x,\{x=1, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 2/1,\{x=1, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 2,\{x=1, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,\{x=2, y=2,b=(4,2,0)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=2, y=2,b=(4,2,0)\}))$
+
+% \qquad \qquad \qquad \qquad \qquad $=M(W,M(\textbf{ if } x<y \textbf{ then } x \coloneqq y/x \textbf{ else } x \coloneqq x-1; y \coloneqq b[y] \textbf{ fi },\{x=1, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq x-1; y \coloneqq b[y],\{x=2, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 1; y \coloneqq b[y],\{x=2, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq b[2],\{x=1, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq 0,\{x=1, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,\{x=1, y=0,b=(4,2,0)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=1, y=0,b=(4,2,0)\}))$
+
+% \qquad \qquad \qquad \qquad \qquad $=M(W,M(\textbf{ if } x<y \textbf{ then } x \coloneqq y/x \textbf{ else } x \coloneqq x-1; y \coloneqq b[y] \textbf{ fi },\{x=1, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq x-1; y \coloneqq b[y],\{x=1, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 0; y \coloneqq b[y],\{x=1, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq b[0],\{x=0, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq 4,\{x=0, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,\{x=0, y=4,b=(4,2,0)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=\{\{x=0, y=4,b=(4,2,0)\}\}$
+
+\vspace{10pt}
+
+\textbf{c)} $M(W,\sigma)$ where $\sigma=\{x=2, y=2,b=(0,1,2)\}$
+
+\qquad $M(W,\sigma)$ \qquad \qquad $=M(W,\{x=2, y=2,b=(0,1,2)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=2, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq x-1; y \coloneqq b[y],\{x=2, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 1; y \coloneqq b[y],\{x=2, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq b[y],\{x=1, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq b[2],\{x=1, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq 2,\{x=1, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,\{x=1, y=2,b=(0,1,2)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=1, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq y/x,\{x=1, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 2,\{x=1, y=2,b=(0,1,2)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,\{x=2, y=2,b=(0,1,2)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=...$
+
+\qquad \qquad \qquad \qquad \qquad $=\{\perp_d\}$
+
+\vspace{10pt}
+
+\textbf{d)} $M(W,\sigma)$ where $\sigma=\{x=8, y=2,b=(4,2,0)\}$
+
+\qquad $M(W,\sigma)$ \qquad \qquad $=M(W,\{x=8, y=2,b=(0,1,2)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=8, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq x-1; y \coloneqq b[y],\{x=8, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 7; y \coloneqq b[y],\{x=8, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq b[2],\{x=7, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq 0,\{x=7, y=2,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,\{x=7, y=0,b=(4,2,0)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=7, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq x-1; y \coloneqq b[y],\{x=7, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 6; y \coloneqq b[y],\{x=7, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq b[0],\{x=6, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq 4,\{x=6, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,\{x=6, y=4,b=(4,2,0)\})$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(S,\{x=6, y=4,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq x-1; y \coloneqq b[y],\{x=6, y=4,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(x \coloneqq 5; y \coloneqq b[y],\{x=6, y=4,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=M(W,M(y \coloneqq b[4],\{x=5, y=0,b=(4,2,0)\}))$
+
+\qquad \qquad \qquad \qquad \qquad $=\{\perp_e\}$ \qquad \qquad \qquad // out of bounds
+
+\vspace{10pt}
+
+\textbf{e)} No. Division by zero $=\{\perp_e\}$ state can't occur, because the condition of while loop gaurantees $x$ must always be greater than $0$.
+
+
+\section*{Problem 9}
+\textbf{Solution:}
+
+$S \equiv x \coloneqq sqrt(x)/b[y]$, $\sigma =\{b=(3,0,-2,4),x=\alpha,y=\beta\}$
+
+\begin{enumerate}
+    \item Array index out of bounds: Since the size of the array is $4$, when $ \sigma(\beta)<0 $ or $ \sigma(\beta) \geq 4 $ it results in the pseudo state.
+    \item Division by zero: in $\sigma(b[y])=0$ state, there will be a runtime error. Since $0$ is the second element of the array $b$, $\sigma(\beta)=1$ will produce $\{\perp_e\}$.
+    \item Square root of negative number: $\sigma(\alpha)<0$ will result in $\{\perp_e\}$.
+\end{enumerate}
+
+
+\section*{Problem 10}
+\textbf{Solution:}
+
+\textbf{a)} $ \sigma \vDash \exists x \in S.p$ means for \textbf{this} state $ \sigma $ and for \textbf{some} $ \alpha \in S$, it is the case that $ \sigma[x \mapsto \alpha] \vDash p$.
+
+
+\textbf{b)} $ \sigma \vDash \forall x \in S.p$ means for \textbf{this} state $ \sigma $ and for \textbf{every} $ \alpha \in S$, it is the case that $ \sigma[x \mapsto \alpha] \vDash p$.
+
+
+\textbf{c)} $ \sigma \nvDash \exists x \in S.p$ means for \textbf{this} state $ \sigma $ and for \textbf{every} $ \alpha \in S$, it is the case that $ \sigma[x \mapsto \alpha] \nvDash p$.
+
+
+\textbf{d)} $ \sigma \nvDash \forall x \in S.p$ means for \textbf{this} state $ \sigma $ and for \textbf{some} $ \alpha \in S$, it is the case that $ \sigma[x \mapsto \alpha] \nvDash p$.
+
+
+\textbf{e)} $ \vDash \exists x \in S.p $ means for \textbf{every} state $\sigma$, we have $\sigma \vDash \exists x \in S.p $.
+
+
+\textbf{f)} $ \vDash \forall x \in S.p $ means for \textbf{every} state $\sigma$, we have $\sigma \vDash \forall x \in S.p $.
+
+
+\textbf{g)} $ \nvDash \exists x \in S.p $ means for \textbf{some} state $\sigma$, we have $\sigma \nvDash \exists x \in S.p $.
+
+
+\textbf{h)} $ \nvDash \forall x \in S.p $ means for \textbf{some} state $\sigma$, we have $\sigma \nvDash \forall x \in S.p $.
+
+\end{document}
