@@ -1,0 +1,54 @@
+\documentclass{article}
+
+% Packages for setting up page margins
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx, setspace, amsmath, mathtools, amssymb}
+
+% Title
+\title{CS536 Science of Programming - Assignment 3}
+\author{Batkhishig Dulamsurankhor - A20543498}
+\date{\today} % Use \date{} for no date
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Problem 1}
+\textbf{Solution:}
+
+
+\textbf{a)} Let $ S \equiv \textbf{ if } x>y \rightarrow x \coloneqq x-1 \ \square \ x>y \rightarrow y \coloneqq y+1 \ \square \ x+y=4 \rightarrow x \coloneqq y/x \ \square \ x+y=4 \rightarrow x \coloneqq x/y \textbf{ fi }$, and let $ \sigma = \{ x=3, y=1\} $. Calculate  $ M(S,\sigma) $.
+
+\vspace{10pt}
+\qquad $\langle S, \sigma \rangle $ \quad $= \langle \textbf{ if } x>y \rightarrow x \coloneqq x-1 \ \square \ x>y \rightarrow y \coloneqq y+1 \ \square \ x+y=4 \rightarrow x \coloneqq y/x \ \square \ x+y=4 \rightarrow x \coloneqq x/y \textbf{ fi }, \sigma \rangle $
+
+\qquad \qquad \qquad $= \langle \textbf{ if } x>y \rightarrow x \coloneqq x-1 \ \square \ x>y \rightarrow y \coloneqq y+1 \ \square \ x+y=4 \rightarrow x \coloneqq y/x \ \square \ x+y=4 \rightarrow x \coloneqq x/y \textbf{ fi }, \{ x=3, y=1\} \rangle $
+
+\qquad \qquad \qquad $\rightarrow^* \langle \textbf{ if } T \rightarrow x \coloneqq x-1 \ \square \ T \rightarrow y \coloneqq y+1 \ \square \ T \rightarrow x \coloneqq y/x \ \square \ T \rightarrow x \coloneqq x/y \textbf{ fi }, \{ x=3, y=1\} \rangle $
+
+\qquad $\langle S, \sigma \rangle $ \quad $\rightarrow \langle x \coloneqq x-1, \{x=3,y=1\} \rangle$ $\rightarrow^* \langle E, \{x=2,y=1\} \rangle$
+
+\qquad $\langle S, \sigma \rangle $ \quad $\rightarrow \langle y \coloneqq y+1, \{x=3,y=1\} \rangle$ $\rightarrow ^*\langle E, \{x=3,y=2\} \rangle$
+
+\qquad $\langle S, \sigma \rangle $ \quad $\rightarrow \langle x \coloneqq y/x, \{x=3,y=1\} \rangle$ $\rightarrow ^*\langle E, \{x=0.33,y=1\} \rangle$
+
+\qquad $\langle S, \sigma \rangle $ \quad $\rightarrow \langle x \coloneqq x/y, \{x=3,y=1\} \rangle$ $\rightarrow ^*\langle E, \{x=3,y=1\} \rangle$
+
+$M(S,\sigma)=\{\{x=2,y=1\},\{x=3,y=2\},\{x=0.33,y=1\},\{x=3,y=1\}\}$
+
+\vspace{10pt}
+\textbf{b)}  Let $ W \equiv \textbf{ do } x>y \rightarrow x \coloneqq x-1 \ \square \ x>y \rightarrow y \coloneqq y+1 \ \square \ x+y=4 \rightarrow x \coloneqq y/x \ \square \ x+y=4 \rightarrow x \coloneqq x/y \textbf{ od }$, and let $ \sigma = \{ x=3, y=1\} $. Calculate  $ M(W,\sigma) $.
+
+\begin{itemize}
+    \item After the first iteration, we have the following states as we calculated above: $\{\{x=2,y=1\},\{x=3,y=2\},\{x=0.33,y=1\},\{x=3,y=1\}\}$
+    \item After the second iteration, from state $\{x=2,y=1\}$ we have: $\{\{x=1,y=1\},\{x=2,y=2\}\}$, from state $\{x=3,y=2\}$ we have: $\{\{x=2,y=2\},\{x=3,y=3\}\}$, state $\{x=0.33,y=1\}$ doesn't satisfy any conditions, and state $\{x=3,y=1\}$ appears again so it diverges $\perp_d$.
+    \item After the third iteration, state $\{x=1,y=1\}$ and state $\{x=3,y=3\}$ doesn't satisfy any conditions, from state $\{x=2,y=2\}$ we have: $\{x=1,y=2\}$.
+    \item Thus, $M(W,\sigma)=\{\{x=0.33,y=1\},\perp_d,\{x=1,y=1\},\{x=3,y=3\},\{x=1,y=2\}\}$
+\end{itemize}
+
+\section*{Problem 2}
+\textbf{Solution:}
+
+\end{document}
