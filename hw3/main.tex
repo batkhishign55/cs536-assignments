@@ -51,4 +51,136 @@ $M(S,\sigma)=\{\{x=2,y=1\},\{x=3,y=2\},\{x=0.33,y=1\},\{x=3,y=1\}\}$
 \section*{Problem 2}
 \textbf{Solution:}
 
+If we look at Jason's program, it terminates when $b[k_1]=1$ and $b[k_2]=2$ because there is no guard that handles this case. In this case, we should increase both pointers meaning we have paired a 1 with a 2.
+
+\qquad $MAJORITY \equiv$
+
+\qquad \qquad $k_1 \coloneqq 0; k_2 \coloneqq 0;$
+
+\qquad \qquad $\textbf{do } b[k_1]=2 \rightarrow k_1 \coloneqq k_1+1$
+
+\qquad \qquad \ $\square \ b[k_2]=1 \rightarrow k_2 \coloneqq k_2+1$
+
+\qquad \qquad \ $\square \ b[k_1]=1 \wedge b[k_2]=2 \rightarrow k_1 \coloneqq k_1+1; k_2 \coloneqq k_2+1 \textbf{ od}$
+
+\vspace{10pt}
+It is possible that $\perp_e \in M(MAJORITY, \sigma)$. Let's handle the out of bound exception:
+
+\qquad $MAJORITY \equiv$
+
+\qquad \qquad $k_1 \coloneqq 0; k_2 \coloneqq 0;$
+
+\qquad \qquad $\textbf{do } k_1<n \wedge b[k_1]=2 \rightarrow k_1 \coloneqq k_1+1$
+
+\qquad \qquad \ $\square \ k_2<n \wedge b[k_2]=1 \rightarrow k_2 \coloneqq k_2+1$
+
+\qquad \qquad \ $\square \ k_1<n \wedge k_2<n \wedge b[k_1]=1 \wedge b[k_2]=2 \rightarrow k_1 \coloneqq k_1+1; k_2 \coloneqq k_2+1 \textbf{ od}$
+
+\section*{Problem 3}
+\textbf{Solution:}
+
+\textbf{a)} True. Because the nature of nondeterminism, we can end up with more than one state.
+
+\textbf{b)} False. Because a state $\sigma$ doesn't have to satisfy the precondition $p$ and the correctness triple can still be true since we are not running $S$ with $\sigma$.
+
+\textbf{c)} False. Because $\sigma$ satisfies the precondition and there exist some $\tau$ that is either terminated in error or doesn't satisfy the postcondition.
+
+\textbf{d)} False. Partial correctness can end with error.
+
+\textbf{e)} True. Without pseudo states, the resulting state after $S$ should satisfy the inverse of the postcondition.
+
+\section*{Problem 4}
+\textbf{Solution:}
+
+\textbf{a)} Valid since it's according to Backward Assignment Rule.
+
+\textbf{b)} Not valid. Because postcondition is stronger.
+
+\textbf{c)} Valid. No state can satisfy the precondition, thus the precondition is always $F$ and the triple is correct.
+
+\textbf{d)} Valid because the precondition and the postcondition are semantically equal, and running $s \coloneqq s+1$ doesn't affect the postcondition. Therefore, as long as a state satisfies the precondition, the resulting state will satisfy the postcondition.
+
+\textbf{e)} Vaild since it's according to Backward Assignment Rule.
+
+\section*{Problem 5}
+\textbf{Solution:}
+
+\textbf{a)} All integers except even numbers. If $x$ is even number including 0, loop terminates eventually $x \coloneqq 0$ and it doesn't satisfy the post condition, ${x=0} \nvDash {x<0}$. For odd numbers and negative numbers, the program will diverge because $x$ never becomes $0$. Thus the triple is partially correct.
+
+\textbf{a)} No possible values. There doesn't exist value of $\sigma(x)$ that satisfies the triple.
+
+\section*{Problem 6}
+\textbf{Solution:}
+
+\textbf{a)} True. Strengthening precondition will still satisfy the postcondition. So $q_1$ and $q_2$ both will be satisfied.
+
+\textbf{b)} False. Weakining precondition will not guarantee that the postcondition is satisfied. So $q_1$ and $q_2$ may or may not be satisfied.
+
+\section*{Problem 7}
+\textbf{Solution:}
+
+\textbf{a)} False.
+
+\textbf{b)} False.
+
+\section*{Problem 8}
+\textbf{Solution:}
+
+\textbf{a)} True. According to the weakest precondition.
+
+\textbf{b)} True. Since $w$ is the weakest precondition, making it stronger will satisfy the postcondition.
+
+\textbf{c)} False.
+
+\textbf{d)} True.
+
+\textbf{e)} False. Pseudo state can exist.
+
+\section*{Problem 9}
+\textbf{Solution:}
+
+\textbf{a)} $wlp(S,q)$ \qquad $\equiv wlp(y \coloneqq y/x,sqrt(y)>x)$
+
+\qquad \qquad \qquad \qquad $\equiv sqrt(y/x)>x$ \qquad  \qquad  \qquad  \qquad // backward assignment rule
+
+\vspace{10pt}
+\textbf{b)} $wp(S,q) \equiv D(S) \wedge wlp(S,q) \wedge D(wlp(S,q))$
+
+\begin{itemize}
+    \item $D(S) \equiv D(y/x) \equiv x \neq 0$
+    \item $wlp(S,q) \equiv sqrt(y/x)>x$
+    \item $D(wlp(S,q)) \equiv D(sqrt(y/x)>x) \equiv y/x \geq 0 \wedge x \neq 0$
+    \item $wp(S,q) \equiv x \neq 0 \wedge sqrt(y/x)>x \wedge y/x \geq 0 \wedge x \neq 0$
+
+\qquad \qquad $\Leftrightarrow x \neq 0 \wedge sqrt(y/x)>x \wedge y/x \geq 0$
+\end{itemize}
+
+\section*{Problem 10}
+\textbf{Solution:}
+
+\textbf{a)} $wlp(S,q) \equiv wlp(\textbf{if } y \geq 0 \textbf{ then } x \coloneqq -y/x \textbf{ else } x \coloneqq x/y \textbf{ fi}, r<x \leq y)$
+
+\qquad \qquad \qquad $\equiv (y \geq 0 \rightarrow wlp(x \coloneqq -y/x, r<x \leq y)) \wedge (\neg(y \geq 0) \rightarrow wlp(x \coloneqq x/y, r<x \leq y))$
+
+\qquad \qquad \qquad $\equiv (y \geq 0 \rightarrow r<-y/x \leq y) \wedge (y < 0 \rightarrow r<x/y \leq y)$
+
+\vspace{10pt}
+\textbf{b)} $wp(S,q) \equiv D(S) \wedge wlp(S,q) \wedge D(wlp(S,q))$
+
+\begin{itemize}
+    \item $D(S) \equiv \textbf{if } y \geq 0 \textbf{ then } x \coloneqq -y/x \textbf{ else } x \coloneqq x/y \textbf{ fi} \equiv x \neq 0 \wedge y \neq 0$
+
+    \qquad \qquad $\equiv D(y \geq 0) \wedge (y \geq 0 \rightarrow D( x \coloneqq -y/x)) \wedge (y < 0 \rightarrow D(x \coloneqq x/y))$
+
+    \qquad \qquad $\equiv T \wedge (y \geq 0 \rightarrow x \neq 0) \wedge (y < 0 \rightarrow y \neq 0)$
+
+    \qquad \qquad $\equiv (y < 0 \lor x \neq 0) \wedge T$
+
+    \qquad \qquad $\equiv y < 0 \lor x \neq 0$
+
+    \item $wlp(S,q) \equiv (y \geq 0 \rightarrow r<-y/x \leq y) \wedge (y < 0 \rightarrow r<x/y \leq y)$
+    \item $D(wlp(S,q)) \equiv D((y \geq 0 \rightarrow r<-y/x \leq y) \wedge (y < 0 \rightarrow r<x/y \leq y))$
+    \item $wp(S,q) \equiv y < 0 \lor x \neq 0 \wedge (y \geq 0 \rightarrow r<-y/x \leq y) \wedge (y < 0 \rightarrow r<x/y \leq y) \wedge D((y \geq 0 \rightarrow r<-y/x \leq y) \wedge (y < 0 \rightarrow r<x/y \leq y))$
+
+\end{itemize}
 \end{document}
