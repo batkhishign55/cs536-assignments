@@ -1,0 +1,166 @@
+\documentclass{article}
+
+% Packages for setting up page margins
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx, setspace, amsmath, mathtools, amssymb}
+
+% Title
+\title{CS536 Science of Programming - Assignment 4}
+\author{Batkhishig Dulamsurankhor - A20543498}
+\date{\today} % Use \date{} for no date
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Problem 1}
+
+$ p \equiv x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)) $. Finish the syntactic substitutions.
+\vspace{10pt}
+
+\textbf{a)} $ p[y+z/x] \equiv (x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[y+z/x]$
+
+\qquad \qquad \qquad  $ \equiv (y+z)>y \rightarrow (\forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[y+z/x]$
+
+\qquad \qquad \qquad  $ \equiv (y+z)>y \rightarrow \forall v.(y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[v/z][y+z/x]$
+
+\qquad \qquad \qquad  $ \equiv (y+z)>y \rightarrow \forall v.(y \leq v < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,v)))[y+z/x]$
+
+\qquad \qquad \qquad  $ \equiv (y+z)>y \rightarrow \forall v.y \leq v < y+z \rightarrow \exists w.(w>0 \wedge (w*y<0 \rightarrow f(w,v)))[y+z/x]$
+
+\qquad \qquad \qquad  $ \equiv (y+z)>y \rightarrow \forall v.y \leq v < y+z \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,v))$
+
+\vspace{10pt}
+\textbf{b)} $ p[x+w/y] \equiv (x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[x+w/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(x+w) \rightarrow \forall z.(y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[x+w/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(x+w) \rightarrow \forall z.x+w \leq z < x \rightarrow (\exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[x+w/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(x+w) \rightarrow \forall z.x+w \leq z < x \rightarrow (\exists v.(w>0 \wedge (w*y<0 \rightarrow f(w,z)))[v/w])[x+w/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(x+w) \rightarrow \forall z.x+w \leq z < x \rightarrow \exists v.(v>0 \wedge (v*y<0 \rightarrow f(v,z)))[x+w/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(x+w) \rightarrow \forall z.x+w \leq z < x \rightarrow \exists v.v>0 \wedge (v*(x+w)<0 \rightarrow f(v,z))$
+
+\vspace{10pt}
+\textbf{c)} $ p[w+z/y] \equiv (x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[w+z/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow (\forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[w+z/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow (\forall v.(y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[v/z])[w+z/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.(y \leq v < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,v)))[w+z/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow (\exists w.w>0 \wedge (w*y<0 \rightarrow f(w,v)))[w+z/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow (\exists u.(w>0 \wedge (w*y<0 \rightarrow f(w,v)))[u/w])[w+z/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow \exists u.(u>0 \wedge (u*y<0 \rightarrow f(u,v)))[w+z/y]$
+
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow \exists u.u>0 \wedge (u*(w+z)<0 \rightarrow f(u,v))$
+
+\vspace{10pt}
+\textbf{d)} $ p[x+y/z] \equiv (x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[x+y/z]$
+
+\qquad \qquad \qquad  $ \equiv x>y \rightarrow (\forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[x+y/z]$
+
+
+\section*{Problem 2}
+
+\textbf{a)} True.
+
+
+\section*{Problem 3}
+
+\textbf{a)} True.
+
+
+\section*{Problem 4}
+
+Calculate $ sp(i \leq j \wedge j<n+1, i \coloneqq f(i+j);j \coloneqq g(i-j)) $.
+\vspace{10pt}
+
+$ sp(i \leq j \wedge j<n+1, i \coloneqq f(i+j);j \coloneqq g(i-j)) $
+
+\qquad \qquad \qquad  $ \equiv sp(sp(i \leq j \wedge j<n+1, i \coloneqq f(i+j)),j \coloneqq g(i-j)) $
+
+\qquad \qquad \qquad  $ \equiv sp(i_0 \leq j \wedge j<n+1 \wedge i=(f(i+j))[i_0,i],j \coloneqq g(i-j)) $
+
+\qquad \qquad \qquad  $ \equiv sp(i_0 \leq j \wedge j<n+1 \wedge i=f(i_0+j),j \coloneqq g(i-j)) $
+
+\qquad \qquad \qquad  $ \equiv i_0 \leq j_0 \wedge j_0<n+1 \wedge i=f(i_0+j) \wedge j=g(i-j_0) $
+
+
+\section*{Problem 5}
+
+Calculate $ sp(T, y \coloneqq x; \textbf{ if } x<0 \textbf{ then } y \coloneqq -y \textbf{ fi}) $.
+\vspace{10pt}
+
+Let $p \equiv T$, $ S \equiv y \coloneqq x; \textbf{ if } x<0 \textbf{ then } y \coloneqq -y \textbf{ fi} $
+
+\begin{itemize}
+\item $lhs(S)=\{y\}$
+\item $rhs(S)=\{x,y\}$
+\item $free(p)=\varnothing$
+\item $aged(p,S)=\{y\}$
+\end{itemize}
+
+$ sp(T, y \coloneqq x; \textbf{ if } x<0 \textbf{ then } y \coloneqq -y \textbf{ fi}) $
+
+\qquad \qquad \qquad  $ \equiv sp(T \wedge y=y_0 \wedge x<0, y \coloneqq -y) \vee sp (T \wedge y=y_0 \wedge x \geq 0, skip) $
+
+\qquad \qquad \qquad  $ \equiv (T \wedge y_0=y_0 \wedge x<0 \wedge y = -y_0) \vee (T \wedge y=y_0 \wedge x \geq 0) $
+
+\qquad \qquad \qquad  $ \equiv (x<0 \wedge y = -y_0) \vee (y=y_0 \wedge x \geq 0) $
+
+\section*{Problem 6}
+
+Calculate $ sp(x=y, \textbf{ if } x \geq 0 \rightarrow x \coloneqq y+1; z \coloneqq x  \ \square \ x \leq 0 \rightarrow y \coloneqq x-1; z \coloneqq y \textbf{ fi}) $.
+\vspace{10pt}
+
+Let $p \equiv x=y$, $ S \equiv \textbf{ if } x \geq 0 \rightarrow x \coloneqq y+1; z \coloneqq x  \ \square \ x \leq 0 \rightarrow y \coloneqq x-1; z \coloneqq y \textbf{ fi} $
+
+\begin{itemize}
+\item $lhs(S)=\{x,y,z\}$
+\item $rhs(S)=\{x,y\}$
+\item $rhs(p) \vee free(p,S)=\{x,y\}$
+\item $aged(p,S)=\{x,y\}$
+\end{itemize}
+
+
+$ sp(x=y, \textbf{ if } x \geq 0 \rightarrow x \coloneqq y+1; z \coloneqq x  \ \square \ x \leq 0 \rightarrow y \coloneqq x-1; z \coloneqq y \textbf{ fi}) $
+
+\begin{itemize}
+    \item $sp(x=y \wedge x=x_0 \wedge y=y_0 \wedge x \geq 0, x \coloneqq y+1; z \coloneqq x)$
+
+\qquad \qquad \qquad  $ \equiv sp(sp(x=y \wedge x=x_0 \wedge y=y_0 \wedge x \geq 0, x \coloneqq y+1), z \coloneqq x)$
+
+\qquad \qquad \qquad  $ \equiv sp(x_0=y \wedge x_0=x_0 \wedge y=y_0 \wedge x_0 \geq 0 \wedge x = y+1, z \coloneqq x)$
+
+\qquad \qquad \qquad  $ \equiv x_0=y \wedge x_0=x_0 \wedge y=y_0 \wedge x_0 \geq 0 \wedge x = y+1 \wedge z = x$
+
+    \item $sp(x=y \wedge x=x_0 \wedge y=y_0 \wedge x \leq 0, y \coloneqq x-1; z \coloneqq y)$
+
+\qquad \qquad \qquad  $ \equiv sp(sp(x=y \wedge x=x_0 \wedge y=y_0 \wedge x \leq 0, y \coloneqq x-1), z \coloneqq y)$
+
+\qquad \qquad \qquad  $ \equiv sp(x=y_0 \wedge x=x_0 \wedge y_0=y_0 \wedge x \leq 0 \wedge y = x-1, z \coloneqq y)$
+
+\qquad \qquad \qquad  $ \equiv x=y_0 \wedge x=x_0 \wedge y_0=y_0 \wedge x \leq 0 \wedge y = x-1 \wedge z = y$
+
+    \item $ sp(x=y, \textbf{ if } x \geq 0 \rightarrow x \coloneqq y+1; z \coloneqq x  \ \square \ x \leq 0 \rightarrow y \coloneqq x-1; z \coloneqq y \textbf{ fi}) $
+
+\qquad \qquad \qquad  $\equiv (x_0=y \wedge x_0=x_0 \wedge y=y_0 \wedge x_0 \geq 0 \wedge x = y+1 \wedge z = x) \vee (x=y_0 \wedge x=x_0 \wedge y_0=y_0 \wedge x \leq 0 \wedge y = x-1 \wedge z = y)$
+
+\end{itemize}
+
+
+\section*{Problem 7}
+
+
+\section*{Problem 8}
+
+
+\end{document}
