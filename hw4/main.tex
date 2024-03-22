@@ -54,13 +54,13 @@ $ p \equiv x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wed
 
 \qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.(y \leq v < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,v)))[w+z/y]$
 
-\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow (\exists w.w>0 \wedge (w*y<0 \rightarrow f(w,v)))[w+z/y]$
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.w+z \leq v < x \rightarrow (\exists w.w>0 \wedge (w*y<0 \rightarrow f(w,v)))[w+z/y]$
 
-\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow (\exists u.(w>0 \wedge (w*y<0 \rightarrow f(w,v)))[u/w])[w+z/y]$
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.w+z \leq v < x \rightarrow (\exists u.(w>0 \wedge (w*y<0 \rightarrow f(w,v)))[u/w])[w+z/y]$
 
-\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow \exists u.(u>0 \wedge (u*y<0 \rightarrow f(u,v)))[w+z/y]$
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.w+z \leq v < x \rightarrow \exists u.(u>0 \wedge (u*y<0 \rightarrow f(u,v)))[w+z/y]$
 
-\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.y+z \leq v < x \rightarrow \exists u.u>0 \wedge (u*(w+z)<0 \rightarrow f(u,v))$
+\qquad \qquad \qquad  $ \equiv x>(w+z) \rightarrow \forall v.w+z \leq v < x \rightarrow \exists u.u>0 \wedge (u*(w+z)<0 \rightarrow f(u,v))$
 
 \vspace{10pt}
 \textbf{d)} $ p[x+y/z] \equiv (x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wedge (w*y<0 \rightarrow f(w,z)))[x+y/z]$
@@ -70,12 +70,26 @@ $ p \equiv x>y \rightarrow \forall z.y \leq z < x \rightarrow \exists w.w>0 \wed
 
 \section*{Problem 2}
 
+\textbf{Solution: } 
+
 \textbf{a)} True.
+
+\textbf{b)} False.
 
 
 \section*{Problem 3}
 
+\textbf{Solution: } 
+
 \textbf{a)} True.
+
+\textbf{b)} False.
+
+\textbf{c)} False.
+
+\textbf{d)} False.
+
+\textbf{e)} False.
 
 
 \section*{Problem 4}
@@ -110,11 +124,15 @@ Let $p \equiv T$, $ S \equiv y \coloneqq x; \textbf{ if } x<0 \textbf{ then } y 
 
 $ sp(T, y \coloneqq x; \textbf{ if } x<0 \textbf{ then } y \coloneqq -y \textbf{ fi}) $
 
-\qquad \qquad \qquad  $ \equiv sp(T \wedge y=y_0 \wedge x<0, y \coloneqq -y) \vee sp (T \wedge y=y_0 \wedge x \geq 0, skip) $
+\qquad \qquad \qquad  $ \equiv sp(sp(T, y \coloneqq x), \textbf{ if } x<0 \textbf{ then } y \coloneqq -y \textbf{ fi})$
 
-\qquad \qquad \qquad  $ \equiv (T \wedge y_0=y_0 \wedge x<0 \wedge y = -y_0) \vee (T \wedge y=y_0 \wedge x \geq 0) $
+\qquad \qquad \qquad  $ \equiv sp(T \wedge y = x, \textbf{ if } x<0 \textbf{ then } y \coloneqq -y \textbf{ fi})$
 
-\qquad \qquad \qquad  $ \equiv (x<0 \wedge y = -y_0) \vee (y=y_0 \wedge x \geq 0) $
+\qquad \qquad \qquad  $ \equiv sp(T \wedge y = x \wedge y=y_0 \wedge x<0, y \coloneqq -y) \vee sp (T \wedge y = x \wedge y=y_0 \wedge x \geq 0, skip) $
+
+\qquad \qquad \qquad  $ \equiv (T \wedge y_0 = x \wedge y_0=y_0 \wedge x<0 \wedge y = -y_0) \vee (T \wedge y = x \wedge y=y_0 \wedge x \geq 0) $
+
+\qquad \qquad \qquad  $ \equiv (y_0 = x \wedge x<0 \wedge y = -y_0) \vee (y = x \wedge y=y_0 \wedge x \geq 0) $
 
 \section*{Problem 6}
 
@@ -159,8 +177,87 @@ $ sp(x=y, \textbf{ if } x \geq 0 \rightarrow x \coloneqq y+1; z \coloneqq x  \ \
 
 \section*{Problem 7}
 
+Let's calculate $ p \Leftrightarrow wlp(S,L \leq R) $.
+
+$ wlp(S,L \leq R) \equiv (b[M]<x \rightarrow wlp(L \coloneqq M+1, L \leq R)) \wedge (b[M] \geq x \rightarrow wlp(R \coloneqq M, L \leq R))$
+
+\qquad \qquad \qquad $ \equiv (b[M]<x \rightarrow M+1<R) \wedge (b[M]>x \rightarrow L \leq M) $
+
+1. $ \{M+1 \leq R\} L \coloneqq M+1 \{L \leq R\} $ \qquad \qquad \qquad \qquad \qquad \qquad backward assignment
+
+2. $ (b[M]<x \rightarrow M+1 \leq R) \wedge b[M]<x \Rightarrow M+1 \leq R$  \qquad \qquad modus ponens
+
+3. $ p \wedge b[M]<x \Rightarrow (b[M]<x \rightarrow M+1 \leq R) \wedge b[M] >x $  \qquad \qquad predicate logic
+
+4. $ p \wedge b[M]<x \Rightarrow M+1<R $  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad predicate logic
+
+5. $ \{p \wedge b[M]<x\} L \coloneqq M+1 \{L \leq R\} $  \qquad \qquad \qquad \qquad \qquad \qquad strengthen precondition 4,1
+
+6. $ \{L \leq M\} R \coloneqq M \{L \leq R\} $ \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad backward assignment
+
+7. $ p \wedge b[M] \geq x \Rightarrow L \leq M $ \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad predicate logic
+
+8. $ \{p \wedge b[M] \geq x\} R \coloneqq m \{L \leq R\} $ \qquad \qquad \qquad \qquad \qquad \qquad \qquad strengthen precondition 7,6
+
+9. $ \{p\}S\{L \leq R\} $ \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad 5,8
 
 \section*{Problem 8}
 
+\textbf{Solution: } 
+
+1. $ \{p_1\}S_1 \{q_1\} $
+
+2. $ \{p_2\}S_2 \{q_2\} $
+
+3. $ \{(B \rightarrow p_1) \wedge (\lnot B \rightarrow p_2)\} \textbf{ if } B \textbf{ then } S_1 \textbf{ else } S_2 \textbf{ fi } \{q_1 \vee q_2\}$
+
+\section*{Problem 9}
+
+\textbf{Solution: } 
+
+1. $ \{p_1\}x \coloneqq x*2 \{p_2\} $
+
+2. $ \{p_2\}k \coloneqq k+1 \{p_3\} $
+
+3. $ \{p_1\}x \coloneqq x*2;k \coloneqq k+1\{p_3\} $ \qquad \qquad \qquad \qquad \qquad \qquad \qquad sequence 1,2
+
+4. $p_3 \rightarrow p $  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad predicate logic
+
+5. $ \{p_1\}x \coloneqq x*2;k \coloneqq k+1\{p\} $ \qquad \qquad \qquad \qquad \qquad \qquad \qquad weaken postcondition 4, 3
+
+6. $ \{ \textbf{inv } p\} \textbf{ while } k<n \textbf{ do } x \coloneqq x*2;k \coloneqq k+1 \textbf{ od }\{p_4\} $ \qquad \quad loop 5
+
+
+\section*{Problem 10}
+
+\textbf{Solution: } 
+
+1. forward assignment
+
+2. forward assignment
+
+3. predicate logic
+
+4. weaken postcondition 2,3
+
+5. sequence 1,4
+
+6. backward assignment
+
+7. backward assignment
+
+8. predicate logic
+
+9. strengthen precondition 8,7
+
+10. sequence 9,6
+
+11. loop 10
+
+12. sequence 5,11
+
+13. predicate logic
+
+14. weaken postcondition 12, 13
 
 \end{document}
