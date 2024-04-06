@@ -1,0 +1,113 @@
+\documentclass{article}
+
+% Packages for setting up page margins
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx, setspace, amsmath, mathtools, amssymb}
+
+% Title
+\title{CS536 Science of Programming - Assignment 5}
+\author{Batkhishig Dulamsurankhor - A20543498}
+\date{\today} % Use \date{} for no date
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Problem 1}
+
+Full proof outline under partial correctness for q10 Assignment 4.
+\vspace{10pt}
+
+$\{n>0\}$
+
+$k \coloneqq n-1; \{n>0 \wedge k=n-1\} x \coloneqq n; \{n>0 \wedge k=n-1 \wedge x=n\}\{1 \leq k \leq n \wedge x=n!/k! \}$
+
+$\{\textbf{inv }p \equiv 1 \leq k \leq n \wedge x=n!/k! \}$
+
+$ \textbf{while } k>1 \textbf{ do }$
+
+\qquad \qquad $\{p \wedge k>1\}\{p[x*k/x][k-1/k]\}k \coloneqq k-1; \{p[x*k/x]\}x \coloneqq x*k; \{p\}$
+
+$\textbf{ od}$
+
+$\{p \wedge k \leq 1\}\{x=n!\}$
+
+
+\section*{Problem 2}
+
+Minimal proof outline under partial correctness for q10 Assignment 4.
+\vspace{10pt}
+
+$\{n>0\}$
+
+$k \coloneqq n-1; x \coloneqq n;$
+
+$\{\textbf{inv }p \equiv 1 \leq k \leq n \wedge x=n!/k! \}$
+
+$ \textbf{while } k>1 \textbf{ do }$
+
+\qquad \qquad $k \coloneqq k-1; x \coloneqq x*k;$
+
+$\textbf{ od}$
+
+$\{x=n!\}$
+
+
+\section*{Problem 3}
+
+Full proof outline with backward assignment.
+
+\vspace{10pt}
+
+$ \{y \geq 1\} $
+
+$ \{1 \leq 1=2^0 \leq y\} x \coloneqq0;\{1 \leq 1=2^x \leq y\} r \coloneqq 1; $
+
+$\{\textbf{inv }p \equiv 1 \leq r=2^x \leq y \}$
+
+$ \textbf{while } 2*r \leq y \textbf{ do }$
+
+\qquad \qquad $\{p \wedge 2*r \leq y \}$
+
+\qquad \qquad $\{1 \leq 2*r=2^{x+1} \leq y \}$
+
+\qquad \qquad $r \coloneqq 2*r;\{1 \leq r=2^{x+1} \leq y\}$
+
+\qquad \qquad $x \coloneqq x+1;\{1 \leq r=2^x \leq y \}$
+
+$ \textbf { od}$
+
+$ \{p \wedge 2*r > y \}$
+
+$ \{r=2^x \leq 2^{x+1} \}$
+
+
+\section*{Problem 4}
+
+Full proof outline with forward assignment.
+
+\vspace{10pt}
+
+$ \{y \geq 1\} $
+
+$ x \coloneqq0;\{y \geq 1 \wedge x=0\} r \coloneqq 1; \{y \geq 1 \wedge x=0 \wedge r=1\}$
+
+$\{\textbf{inv }p \equiv 1 \leq r=2^x \leq y \}$
+
+$ \textbf{while } 2*r \leq y \textbf{ do }$
+
+\qquad \qquad $\{p \wedge 2*r \leq y \}$
+
+\qquad \qquad $r \coloneqq 2*r;\{1 \leq r_0=2^x \leq y \wedge 2*r_0 \leq y \wedge r=2*r_0 \}$
+
+\qquad \qquad $x \coloneqq x+1;\{1 \leq r_0=2^{x_0} \leq y \wedge 2*r_0 \leq y \wedge r=2*r_0 \wedge x=x_0+1 \}$
+
+$ \textbf { od}$
+
+$ \{p \wedge 2*r > y \}$
+
+$ \{r=2^x \leq 2^{x+1} \}$
+
+\end{document}
