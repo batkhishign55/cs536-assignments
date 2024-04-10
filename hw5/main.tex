@@ -22,7 +22,7 @@ Full proof outline under partial correctness for q10 Assignment 4.
 
 $\{n>0\}$
 
-$k \coloneqq n-1; \{n>0 \wedge k=n-1\} x \coloneqq n; \{n>0 \wedge k=n-1 \wedge x=n\}\{1 \leq k \leq n \wedge x=n!/k! \}$
+$k \coloneqq n-1; \{n>0 \wedge k=n-1\} x \coloneqq n; \{n>0 \wedge k=n-1 \wedge x=n\}$
 
 $\{\textbf{inv }p \equiv 1 \leq k \leq n \wedge x=n!/k! \}$
 
@@ -109,5 +109,266 @@ $ \textbf { od}$
 $ \{p \wedge 2*r > y \}$
 
 $ \{r=2^x \leq 2^{x+1} \}$
+
+
+\section*{Problem 5}
+
+Bound expression and full proof outline.
+
+\vspace{10pt}
+
+$ \{y \geq 1\} $
+
+$ \{1 \leq 1=2^0 \leq y\} x \coloneqq0;\{1 \leq 1=2^x \leq y\} r \coloneqq 1; $
+
+$\{\textbf{inv }p \equiv 1 \leq r=2^x \leq y \}\{\textbf{bd }y-r\}$
+
+$ \textbf{while } 2*r \leq y \textbf{ do }$
+
+\qquad \qquad $\{p \wedge 2*r \leq y \wedge y-r=t_0 \}$
+
+\qquad \qquad $\{1 \leq 2*r=2^{x+1} \leq y \wedge y-(2*r)<t_0 \}$
+
+\qquad \qquad $r \coloneqq 2*r;\{1 \leq r=2^{x+1} \leq y \wedge y-r<t_0\}$
+
+\qquad \qquad $x \coloneqq x+1;\{1 \leq r=2^x \leq y \wedge y-r<t_0 \}$
+
+$ \textbf { od}$
+
+$ \{p \wedge 2*r > y \}$
+
+$ \{r=2^x \leq 2^{x+1} \}$
+
+
+\section*{Problem 6}
+
+\begin{itemize}
+    \item The postcondition $x=y \geq k$ is already safe.
+    \item We can use conditional rule 2, and backward assignment rule to create $p$.
+
+    $\{p\}$
+
+    $\textbf{if } x>y \textbf{ then}$
+
+    \qquad \qquad $\{b[x-y]=y \geq k \wedge 0 \leq (x-y) < size(b)\}x \coloneqq b[x-y] \{x=y \geq k\}$
+
+    $\textbf{else}$
+
+    \qquad \qquad $ \{x=k/b[y-x] \geq k \wedge 0 \leq (y-x) < size(b) \wedge b[y-x] \neq 0\}y \coloneqq k/b[y-x] \{x=y \geq k\}$
+
+    $\textbf{fi } \{x=y \geq k\}$
+
+
+    \vspace{10pt}
+    Where $p \equiv (x>y \rightarrow b[x-y]=y \geq k \wedge 0 \leq (x-y) < size(b)) \wedge (x \leq y \rightarrow x=k/b[y-x] \geq k \wedge 0 \leq (y-x) < size(b) \wedge b[y-x] \neq 0)$
+
+\end{itemize}
+
+
+\section*{Problem 7}
+
+Decide true or false for each of the statements.
+
+a. False. $t_0$ doesn't necessarily imply that.
+
+b. True. Because $W$ is totally correct so pseudo state can't happen.
+
+c. True.
+
+d. False. t cannot be negative.
+
+e. False. t can be more than 0 and still terminate.
+
+
+\section*{Problem 8}
+
+Whether each of the following expressions can be the bound expression for $W$.
+
+a. False. Although $n-k$ is positive, we are not given that $x$ is positive, so the expression can be negative.
+
+b. False. $t$ cannot be a constant.
+
+c. True. Because from the loop invariant, we know that $0<C \leq k \leq n+C$ and also $B \equiv k \leq n$.
+
+d. False. $t$ will increase because $k$ is increasing after each iteration.
+
+e. True. It is similar to $C$.
+
+
+\section*{Problem 9}
+
+Create 5 possible candidates for the loop invariant $p$ and their corresponding loop condition $B$ by replacing a constant by a variable in $q \equiv y \geq 0 \wedge z=2*y \leq x < 2*(y+1)$.
+
+\vspace{10pt}
+
+1. Replace $0$ by $k$.
+\vspace{10pt}
+
+$\{\textbf{inv } y \geq k \wedge z=2*y \leq x < 2*(y+1) \wedge k \leq 0\} \{\textbf{bd } y-k\}$
+
+$\textbf{while } k \neq 0 \textbf{ do}$
+
+\qquad \qquad $...make\ k\ larger\ or\ make\ y\ smaller$
+
+$\textbf{od}$
+
+$\{y \geq k \wedge z=2*y \leq x < 2*(y+1) \wedge k \leq 0 \wedge k=0\}$
+
+$\{y \geq 0 \wedge z=2*y \leq x < 2*(y+1)\}$
+
+\vspace{10pt}
+2. Replace $2$ by $k$.
+\vspace{10pt}
+
+$\{\textbf{inv } y \geq 0 \wedge z=k*y \leq x < 2*(y+1) \wedge k \leq 2\} \{\textbf{bd } x-k*y\}$
+
+$\textbf{while } k \neq 2 \textbf{ do}$
+
+\qquad \qquad $...make\ k*y\ larger$
+
+$\textbf{od}$
+
+$\{y \geq 0 \wedge z=k*y \leq x < 2*(y+1) \wedge k \leq 2 \wedge k=2\}$
+
+$\{y \geq 0 \wedge z=2*y \leq x < 2*(y+1)\}$
+
+\vspace{10pt}
+
+3. Replace $x$ by $k$.
+\vspace{10pt}
+
+$\{\textbf{inv } y \geq 0 \wedge z=2*y \leq k < 2*(y+1) \wedge k \geq x\} \{\textbf{bd } k-2*y\}$
+
+$\textbf{while } k \neq x \textbf{ do}$
+
+\qquad \qquad $...make\ k\ smaller\ or\ make\ 2*y\ larger$
+
+$\textbf{od}$
+
+$\{y \geq 0 \wedge z=2*y \leq k < 2*(y+1) \wedge k \geq x \wedge k=x\}$
+
+$\{y \geq 0 \wedge z=2*y \leq x < 2*(y+1)\}$
+
+\vspace{10pt}
+
+4. Replace $2$ by $k$.
+\vspace{10pt}
+
+$\{\textbf{inv } y \geq 0 \wedge z=2*y \leq x < k*(y+1) \wedge k \geq 2\} \{\textbf{bd } k*(y+1)-x\}$
+
+$\textbf{while } k \neq 2 \textbf{ do}$
+
+\qquad \qquad $...make\ k*(y+1)\ smaller$
+
+$\textbf{od}$
+
+$\{y \geq 0 \wedge z=2*y \leq x < k*(y+1) \wedge k \geq 2 \wedge k=2\}$
+
+$\{y \geq 0 \wedge z=2*y \leq x < 2*(y+1)\}$
+
+\vspace{10pt}
+
+5. Replace $1$ by $k$.
+\vspace{10pt}
+
+$\{\textbf{inv } y \geq 0 \wedge z=2*y \leq x < 2*(y+k) \wedge k \geq 1\} \{\textbf{bd } 2*(y+k)-x\}$
+
+$\textbf{while } k \neq 1 \textbf{ do}$
+
+\qquad \qquad $...make\ 2*(y+k)\ smaller$
+
+$\textbf{od}$
+
+$\{y \geq 0 \wedge z=2*y \leq x < 2*(y+k) \wedge k \geq 1 \wedge k=1\}$
+
+$\{y \geq 0 \wedge z=2*y \leq x < 2*(y+1)\}$
+
+\vspace{10pt}
+
+
+\section*{Problem 10}
+
+Create 4 possible candidates for the loop invariant $p$ and their corresponding loop condition $B$ by dropping off one conjunct in $q \equiv (y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1})$.
+
+1. Drop $(y \geq 0)$ off.
+\vspace{10pt}
+
+$\{\textbf{inv } (z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1})\} \{\textbf{bd } ...\}$
+
+$\textbf{while } y < 0 \textbf{ do}$
+
+\qquad \qquad $\{(z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1}) \wedge  (y < 0)\}$
+
+\qquad \qquad loop body
+
+\qquad \qquad $\{(z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1}) \}$
+
+$\textbf{od}$
+
+$\{(z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1}) \wedge (y \geq 0)\}$
+
+$\{(y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1})\}$
+
+\vspace{10pt}
+2. Drop $(z=2^y)$ off.
+\vspace{10pt}
+
+$\{\textbf{inv } (y \geq 0) \wedge (2^y \leq x) \wedge (x<2^{y+1})\} \{\textbf{bd } ...\}$
+
+$\textbf{while } z \neq 2^y \textbf{ do}$
+
+\qquad \qquad $\{(y \geq 0) \wedge (2^y \leq x) \wedge (x<2^{y+1}) \wedge (z \neq 2^y)\}$
+
+\qquad \qquad loop body
+
+\qquad \qquad $\{(y \geq 0) \wedge (2^y \leq x) \wedge (x<2^{y+1})\}$
+
+$\textbf{od}$
+
+$\{(y \geq 0) \wedge (2^y \leq x) \wedge (x<2^{y+1}) \wedge (z=2^y)\}$
+
+$\{(y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1})\}$
+
+\vspace{10pt}
+3. Drop $(2^y \leq x)$ off.
+\vspace{10pt}
+
+$\{\textbf{inv } (y \geq 0) \wedge (z=2^y) \wedge (x<2^{y+1})\} \{\textbf{bd } ...\}$
+
+$\textbf{while } 2^y > x \textbf{ do}$
+
+\qquad \qquad $\{(y \geq 0) \wedge (z=2^y) \wedge (x<2^{y+1}) \wedge (2^y > x)\}$
+
+\qquad \qquad loop body
+
+\qquad \qquad $\{(y \geq 0) \wedge (z=2^y) \wedge (x<2^{y+1})\}$
+
+$\textbf{od}$
+
+$\{(y \geq 0) \wedge (z=2^y) \wedge (x<2^{y+1}) \wedge (2^y \leq x)\}$
+
+$\{(y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1})\}$
+
+\vspace{10pt}
+4. Drop $(x<2^{y+1})$ off.
+\vspace{10pt}
+
+$\{\textbf{inv } (y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x)\} \{\textbf{bd } ...\}$
+
+$\textbf{while } x \geq 2^{y+1} \textbf{ do}$
+
+\qquad \qquad $\{(y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x) \wedge (x \geq 2^{y+1})\}$
+
+\qquad \qquad loop body
+
+\qquad \qquad $\{(y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x)\}$
+
+$\textbf{od}$
+
+$\{(y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1})\}$
+
+$\{(y \geq 0) \wedge (z=2^y) \wedge (2^y \leq x) \wedge (x<2^{y+1})\}$
+
+\vspace{10pt}
 
 \end{document}
