@@ -1,0 +1,166 @@
+\documentclass{article}
+
+% Packages for setting up page margins
+\usepackage[margin=1in]{geometry}
+
+\usepackage{graphicx, setspace, amsmath, mathtools, amssymb}
+
+% Title
+\title{CS536 Science of Programming - Assignment 6}
+\author{Batkhishig Dulamsurankhor - A20543498}
+\date{\today} % Use \date{} for no date
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Problem 1}
+
+Postcondition $x=fac(n)$, precondition $n \geq 0$. Create a loop invariant $p$ by replacing $n$ by variable $y$ in the postcondition.
+\vspace{10pt}
+
+If we replace $n$ by variable $y$, we get $x=fac(y)$. Because we need the factorial of the first $n$ natural numbers, we have to intialize $y=1$ and increment it on each iteration until $y=n$.
+\vspace{10pt}
+
+$\{\textbf{inv }p \equiv x=fac(y) \wedge 1 \leq y \leq n \}\{\textbf{bd } n-y\}$
+
+$ \textbf{while } y \neq n \textbf{ do }$
+
+\qquad \qquad ... make y larger ...
+
+$\textbf{ od}$
+
+$\{x=fac(y) \wedge 1 \leq y \leq n \wedge y=n\}$
+
+$\{x=fac(n)\}$
+
+
+\section*{Problem 2}
+
+Create full proof outline under the total correctness.
+\vspace{10pt}
+
+Let's consider precondition of the loop. From loop invariant, we know that $1 \leq y \leq n$, so that it is logical to start the loop with $y=1$. $x$ must also be $x=1$. If one of them starts with $0$, then the value of $x$ will never be other than $0$.
+\vspace{10pt}
+
+$\{x=1 \wedge n \geq 1 \wedge y=1 \}$
+
+$\{\textbf{inv }p \equiv x=fac(y) \wedge 1 \leq y \leq n \}\{\textbf{bd } n-y\}$
+
+$ \textbf{while } y \neq n \textbf{ do }$
+
+\qquad \qquad ... make y larger ...
+
+$\textbf{ od}$
+
+$\{x=fac(y) \wedge 1 \leq y \leq n \wedge y=n\}$
+
+$\{x=fac(n)\}$
+
+\vspace{10pt}
+Loop body.
+\vspace{10pt}
+
+$\{x=1 \wedge n \geq 1 \wedge y=1 \}$
+
+$\{\textbf{inv }p \equiv x=fac(y) \wedge 1 \leq y \leq n \}\{\textbf{bd } n-y\}$
+
+$ \textbf{while } y \neq n \textbf{ do }$
+
+\qquad \qquad $x \coloneqq x*(y+1); y \coloneqq y+1;$
+
+$\textbf{ od}$
+
+$\{x=fac(y) \wedge 1 \leq y \leq n \wedge y=n\}$
+
+$\{x=fac(n)\}$
+
+
+\section*{Problem 3}
+
+True or False.
+
+\vspace{10pt}
+
+a. True. We aim for stronger postcondition.
+
+b. False. Although the statement is the definition of a loop invariant, it doesn't imply a good loop invariant. $p$ can be $p \equiv T$ but it is not a good one.
+
+c. False. There is no algorithm to find bound expressions.
+
+d. 
+
+e.
+
+
+\section*{Problem 4}
+
+Full proof outline with forward assignment.
+
+\vspace{10pt}
+
+First, inner array substitution:
+
+$ (b[i])[k/b[j]] \equiv \textbf{if } (i=j) \textbf{ then } k \textbf{ else } b[i] \textbf{ fi} $
+
+\vspace{10pt}
+Then, outer array substitution:
+
+$ (b[b[i]])[k/b[j]] $
+
+\qquad \qquad $ \equiv \textbf{if } ((\textbf{if } (i=j) \textbf{ then } k \textbf{ else } b[i] \textbf{ fi})=j) \textbf{ then } k \textbf{ else } b[\textbf{if } (i=j) \textbf{ then } k \textbf{ else } b[i] \textbf{ fi}] \textbf{ fi} $
+
+\qquad \qquad $ \mapsto  \textbf{if } (\textbf{if } (i=j) \textbf{ then } k=j \textbf{ else } b[i]=j \textbf{ fi}) \textbf{ then } k \textbf{ else } b[\textbf{if } (i=j) \textbf{ then } k \textbf{ else } b[i] \textbf{ fi}] \textbf{ fi} $
+
+\qquad \qquad $ \mapsto  \textbf{if } (i=j \wedge k=j) \vee (i \neq j \wedge b[i]=j) \textbf{ then } k \textbf{ else } b[\textbf{if } (i=j) \textbf{ then } k \textbf{ else } b[i] \textbf{ fi}] \textbf{ fi} $
+
+\qquad \qquad $ \mapsto  \textbf{if } (i=j \wedge k=j) \vee (i \neq j \wedge b[i]=j) \textbf{ then } k \textbf{ else } (\textbf{if } (i=j) \textbf{ then } b[k] \textbf{ else } b[b[i]] \textbf{ fi}) \textbf{ fi} $
+
+\qquad \qquad $ \mapsto  \textbf{if } (i=j \wedge k=j) \vee (i \neq j \wedge b[i]=j) \textbf{ then } k \textbf{ else if } (i=j) \textbf{ then } b[k] \textbf{ else } b[b[i]] \textbf{ fi} $
+
+\section*{Problem 5}
+
+Find an optimized precondition $p$ and create full proof outline: $\{p\}b[i] \coloneqq x;b[j] \coloneqq y \{b[i] \leq b[j]\}$.
+
+\vspace{10pt}
+
+$ wp(b[i] \coloneqq x;b[j] \coloneqq y, b[i] \leq b[j]) $
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq x, wp(b[j] \coloneqq y, b[i] \leq b[j]))$
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq x, (b[i] \leq b[j]) [y/b[j]])$
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq x, (b[i])[y/b[j]] \leq (b[j])[y/b[j]])$
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq x, (\textbf{if } (i=j) \textbf{ then } y \textbf{ else } b[i] \textbf{ fi}) \leq (\textbf{if } (j=j) \textbf{ then } y \textbf{ else } b[j] \textbf{ fi}))$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq x, (\textbf{if } (i=j) \textbf{ then } y \textbf{ else } b[i] \textbf{ fi}) \leq y)$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq x, \textbf{if } (i=j) \textbf{ then } y \leq y \textbf{ else } b[i] \leq y \textbf{ fi})$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq x, \textbf{if } (i=j) \textbf{ then } T \textbf{ else } b[i] \leq y \textbf{ fi})$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq x, (i=j) \vee (b[i] \leq y))$
+
+\qquad \qquad $ \equiv (i=j \vee (b[i] \leq y))[x/ b[i]]$
+
+\qquad \qquad $ \equiv i=j \vee (b[i])[x/ b[i]] \leq y$
+
+\qquad \qquad $ \equiv i=j \vee (\textbf{if } (i=i) \textbf{ then } x \textbf{ else } b[i] \leq y \textbf{ fi}) \leq y$
+
+\qquad \qquad $ \mapsto i=j \vee x \leq y$
+
+\vspace{10pt}
+
+A valid triple: $ \{i=j \vee x \leq y\}b[i] \coloneqq x;b[j] \coloneqq y \{b[i] \leq b[j]\}$.
+
+\vspace{10pt}
+
+$ \{i=j \vee x \leq y\}b[i] \coloneqq x;b[j] \coloneqq y \{b[i] \leq b[j]\}$
+
+\qquad \qquad $ \equiv \{i=j \vee x \leq y\}b[i] \coloneqq x \{b[i] \leq y\} b[j] \coloneqq y \{b[i] \leq b[j]\}$ \qquad \qquad // backward assignment
+
+\qquad \qquad $ \equiv \{i=j \vee x \leq y\}\{x \leq y\} b[i] \coloneqq x \{b[i] \leq y\} b[j] \coloneqq y \{b[i] \leq b[j]\}$ \qquad // backward assignment
+
+\end{document}
