@@ -59,7 +59,7 @@ $\{x=fac(y) \wedge 1 \leq y \leq n \wedge y=n\}$
 $\{x=fac(n)\}$
 
 \vspace{10pt}
-Loop body.
+Loop body:
 \vspace{10pt}
 
 $\{x=1 \wedge n \geq 1 \wedge y=1 \}$
@@ -89,9 +89,9 @@ b. False. Although the statement is the definition of a loop invariant, it doesn
 
 c. False. There is no algorithm to find bound expressions.
 
-d. 
+d. True. Since $\neg B$ can imply $e_1=e_2$, we always have $e_1$.
 
-e.
+e. True. Since $ (B \wedge T) \vee (\neg B \wedge B_2) \equiv B \vee (\neg B \wedge B_2) \equiv (B \vee \neg B) \wedge (B \vee B_2) \equiv B \vee B_2$.
 
 
 \section*{Problem 4}
@@ -163,4 +163,125 @@ $ \{i=j \vee x \leq y\}b[i] \coloneqq x;b[j] \coloneqq y \{b[i] \leq b[j]\}$
 
 \qquad \qquad $ \equiv \{i=j \vee x \leq y\}\{x \leq y\} b[i] \coloneqq x \{b[i] \leq y\} b[j] \coloneqq y \{b[i] \leq b[j]\}$ \qquad // backward assignment
 
+\section*{Problem 6}
+
+Find an optimized precondition $p$ and create full proof outline: $\{p\}b[i] \coloneqq b[j];b[j] \coloneqq b[k] \{b[i] > b[k]\}$.
+
+\vspace{10pt}
+
+$ wp(b[i] \coloneqq b[j];b[j] \coloneqq b[k] , b[i] > b[k]) $
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq b[j], wp(b[j] \coloneqq b[k],b[i] > b[k]))$
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq b[j], (b[i] > b[k])[b[k]/b[j]])$
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq b[j], (b[i])[b[k]/b[j]] > b[k][b[k]/b[j]])$
+
+\qquad \qquad $ \equiv wp(b[i] \coloneqq b[j], (\textbf{if } (i=j) \textbf{ then } b[k] \textbf{ else } b[i] \textbf{ fi}) > (\textbf{if } (k=j) \textbf{ then } b[k] \textbf{ else } b[k] \textbf{ fi}))$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq b[j], (\textbf{if } (i=j) \textbf{ then } b[k] \textbf{ else } b[i] \textbf{ fi}) > b[k])$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq b[j], \textbf{if } (i=j) \textbf{ then } b[k]>b[k] \textbf{ else } b[i]>b[k] \textbf{ fi})$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq b[j], \textbf{if } (i=j) \textbf{ then } F \textbf{ else } b[i]>b[k] \textbf{ fi})$
+
+\qquad \qquad $ \mapsto wp(b[i] \coloneqq b[j], i \neq j \wedge b[i]>b[k])$
+
+\qquad \qquad $ \equiv (i \neq j \wedge b[i]>b[k])[b[j]/b[i]]$
+
+\qquad \qquad $ \equiv i \neq j \wedge (b[i])[b[j]/b[i]]>(b[k])[b[j]/b[i]]$
+
+\qquad \qquad $ \equiv i \neq j \wedge (\textbf{if } (i=i) \textbf{ then } b[j] \textbf{ else } b[i] \textbf{ fi})> (\textbf{if } (k=i) \textbf{ then } b[j] \textbf{ else } b[k] \textbf{ fi})$
+
+\qquad \qquad $ \mapsto i \neq j \wedge b[j]> (\textbf{if } (k=i) \textbf{ then } b[j] \textbf{ else } b[k] \textbf{ fi})$
+
+\qquad \qquad $ \mapsto i \neq j \wedge (\textbf{if } (k=i) \textbf{ then } b[j]> b[j] \textbf{ else } b[j]> b[k] \textbf{ fi})$
+
+\qquad \qquad $ \mapsto i \neq j \wedge (\textbf{if } (k=i) \textbf{ then } F \textbf{ else } b[j]> b[k] \textbf{ fi})$
+
+\qquad \qquad $ \mapsto i \neq j \wedge k \neq i \wedge b[j]> b[k]$
+
+\vspace{10pt}
+
+A valid triple: $ \{i \neq j \wedge k \neq i \wedge b[j]> b[k]\}b[i] \coloneqq b[j];b[j] \coloneqq b[k] \{b[i] > b[k]\}$.
+
+\vspace{10pt}
+
+$ \{i \neq j \wedge k \neq i \wedge b[j]> b[k]\}b[i] \coloneqq b[j];b[j] \coloneqq b[k] \{b[i] > b[k]\}$
+
+\qquad \qquad $ \equiv \{i \neq j \wedge k \neq i \wedge b[j]> b[k]\}b[i] \coloneqq b[j]\{b[i] > b[k]\}b[j] \coloneqq b[k] \{b[i] > b[k]\}$
+\qquad // backward assignment
+
+\qquad \qquad $ \equiv \{i \neq j \wedge k \neq i \wedge b[j]> b[k]\}\{b[j] > b[k]\}b[i] \coloneqq b[j]\{b[i] > b[k]\}b[j] \coloneqq b[k] \{b[i] > b[k]\}$ 
+\qquad // backward assignment
+
+\section*{Problem 7}
+
+$ S \equiv [x \coloneqq 1 \parallel x \coloneqq -1]; y \coloneqq y+x $.
+\vspace{10pt}
+\vspace{10pt}
+
+\qquad \qquad \qquad \qquad \qquad \qquad $ \langle [x \coloneqq 1 \parallel x \coloneqq -1]; y \coloneqq y+x, \sigma \rangle $
+\vspace{10pt}
+\vspace{10pt}
+
+$ \langle [E \parallel x \coloneqq -1]; y \coloneqq y+x, \sigma[x \mapsto 1] \rangle $  \qquad \qquad $ \langle [x \coloneqq 1 \parallel E]; y \coloneqq y+x, \sigma[x \mapsto -1] \rangle $
+
+\vspace{10pt}
+\vspace{10pt}
+$ \langle [E \parallel E]; y \coloneqq y+x, \sigma[x \mapsto -1] \rangle $ \qquad \qquad \qquad $ \langle [E \parallel E]; y \coloneqq y+x, \sigma[x \mapsto 1] \rangle $
+
+\vspace{10pt}
+\vspace{10pt}
+$ \langle [E \parallel E]; E, \sigma[x \mapsto -1][y \mapsto y-1] \rangle $ \qquad \qquad $ \langle [E \parallel E]; E, \sigma[x \mapsto 1][y \mapsto y+1] \rangle $
+
+\vspace{10pt}
+$ M(S, \sigma) = \{\{x = -1,y = y-1\},\{x = 1,y = y+1\}\} $
+
+\vspace{10pt}
+\vspace{10pt}
+\vspace{10pt}
+\vspace{10pt}
+\vspace{10pt}
+\vspace{10pt}
+\vspace{10pt}
+\vspace{10pt}
+\section*{Problem 8}
+
+\qquad \qquad \qquad \qquad \qquad $ \langle \textbf{while } x<n \textbf{ do } [x \coloneqq x+1 \parallel y \coloneqq y*2] \textbf{ od}, \{x=0,y=1,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+\qquad \qquad  \qquad \qquad  \qquad \qquad  $ \langle [x \coloneqq x+1 \parallel y \coloneqq y*2];W, \{x=0,y=1,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+$ \langle [E \parallel y \coloneqq y*2];W, \{x=1,y=1,n=2\} \rangle$ \qquad \qquad $ \langle [x \coloneqq x+1 \parallel E];W, \{x=0,y=2,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+\qquad \qquad  \qquad \qquad  \qquad \qquad  \qquad $ \langle [E \parallel E];W, \{x=1,y=2,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+\qquad \qquad  \qquad \qquad  \qquad $ \langle \textbf{while } x<n \textbf{ do } [x \coloneqq x+1 \parallel y \coloneqq y*2] \textbf{ od}, \{x=1,y=2,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+$ \langle [E \parallel y \coloneqq y*2];W, \{x=2,y=2,n=2\} \rangle$ \qquad \qquad $ \langle [x \coloneqq x+1 \parallel E];W, \{x=1,y=4,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+\qquad \qquad  \qquad \qquad  \qquad \qquad  \qquad $ \langle [E \parallel E];W, \{x=2,y=4,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+\qquad \qquad  \qquad \qquad  \qquad \qquad  \qquad \qquad $ \langle W, \{x=2,y=4,n=2\} \rangle$
+
+\vspace{10pt}
+\vspace{10pt}
+\qquad \qquad  \qquad \qquad  \qquad \qquad  \qquad \qquad $ \langle E, \{x=2,y=4,n=2\} \rangle$
+
+\vspace{10pt}
+$ M(W, \sigma) = \{\{x=2,y=4,n=2\}\} $
 \end{document}
